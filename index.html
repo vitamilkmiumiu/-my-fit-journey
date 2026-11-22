@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fff1f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="My Fit Journey">
+  <meta name="description" content="บันทึกการดูแลตัวเองในแบบของเรา">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>My Fit Journey</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">YOUR BODY, YOUR PACE ♡</p>
+        <h1>My Fit Journey</h1>
+        <p class="sub">ค่อย ๆ ดูแลตัวเองไปด้วยกันนะ</p>
+      </div>
+      <div class="avatar">🌷</div>
+    </header>
+
+    <main>
+      <section class="welcome card">
+        <div>
+          <p class="eyebrow">วันนี้ก็เก่งแล้ว</p>
+          <h2 id="greeting">สวัสดีคนเก่ง 💗</h2>
+          <p class="muted" id="todayLabel"></p>
+        </div>
+        <div class="streak">✨<strong id="completion">0%</strong><small>ภารกิจวันนี้</small></div>
+      </section>
+
+      <nav class="tabs" aria-label="เมนูหลัก">
+        <button class="tab active" data-tab="home">หน้าหลัก</button>
+        <button class="tab" data-tab="food">อาหาร</button>
+        <button class="tab" data-tab="workout">ออกกำลัง</button>
+        <button class="tab" data-tab="progress">ความคืบหน้า</button>
+      </nav>
+
+      <section class="panel active" id="home">
+        <div class="section-heading"><div><p class="eyebrow">DAILY CHECK-IN</p><h2>ภารกิจวันนี้</h2></div><span class="pill" id="taskCount">0/7</span></div>
+        <div class="card task-card" id="taskList"></div>
+
+        <div class="section-heading"><div><p class="eyebrow">QUICK LOG</p><h2>บันทึกด่วน</h2></div></div>
+        <div class="quick-grid">
+          <button class="quick card" data-quick="water"><span>💧</span><b>ดื่มน้ำ</b><small>บันทึกแก้วน้ำ</small></button>
+          <button class="quick card" data-quick="sweet"><span>🧋</span><b>ของหวาน</b><small>บันทึกความหวาน</small></button>
+          <button class="quick card" data-quick="sleep"><span>🌙</span><b>การนอน</b><small>บันทึกเวลาพัก</small></button>
+          <button class="quick card" data-quick="weight"><span>⚖️</span><b>น้ำหนัก</b><small>อัปเดตตัวเลข</small></button>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">GENTLE REMINDER</p><h2>เตือนใจวันนี้</h2></div></div>
+        <div class="quote card">เราไม่จำเป็นต้องสมบูรณ์แบบทุกวัน แค่กลับมาดูแลตัวเองได้เสมอ 🌸</div>
+      </section>
+
+      <section class="panel" id="food">
+        <div class="section-heading"><div><p class="eyebrow">FOOD DIARY</p><h2>บันทึกอาหาร</h2></div></div>
+        <form class="card form" id="foodForm">
+          <label>กินอะไรวันนี้<input required id="foodName" placeholder="เช่น ข้าวกะเพรา + ไข่ต้ม"></label>
+          <div class="two">
+            <label>ราคา (บาท)<input id="foodPrice" type="number" min="0" step="1" placeholder="เช่น 55"></label>
+            <label>มื้ออาหาร<select id="foodMeal"><option>มื้อแรก</option><option>ก่อนเข้าเวร</option><option>ของว่าง</option><option>ระหว่างเวร</option><option>อื่น ๆ</option></select></label>
+          </div>
+          <button class="primary" type="submit">+ เพิ่มบันทึกอาหาร</button>
+        </form>
+        <div class="budget card">
+          <div><span class="muted">ค่าอาหารวันนี้</span><strong><span id="spent">0</span> / 150 บาท</strong></div>
+          <div class="bar"><i id="budgetBar"></i></div>
+          <small class="muted">งบเป็นแนวทาง ไม่ต้องอดอาหารหากยังหิวหรือกินไม่พอ</small>
+        </div>
+        <div class="section-heading"><h2>รายการวันนี้</h2><span class="pill" id="foodCount">0 รายการ</span></div>
+        <div id="foodEntries" class="entry-list"></div>
+
+        <div class="section-heading"><div><p class="eyebrow">SWEET TRACKER</p><h2>บันทึกของหวาน 🧋</h2></div></div>
+        <form class="card form" id="sweetForm">
+          <label>วันนี้กิน/ดื่มอะไรหวาน ๆ<input id="sweetName" required placeholder="เช่น ชาเย็นแก้วเล็ก"></label>
+          <label>ปริมาณ<select id="sweetAmount"><option>เล็กน้อย</option><option>ปกติ</option><option>มากกว่าปกติ</option></select></label>
+          <button class="secondary" type="submit">บันทึกแบบไม่ตัดสินตัวเอง 💗</button>
+        </form>
+        <div id="sweetEntries" class="entry-list"></div>
+      </section>
+
+      <section class="panel" id="workout">
+        <div class="section-heading"><div><p class="eyebrow">BEGINNER FRIENDLY</p><h2>ขยับร่างกายวันนี้</h2></div></div>
+        <div class="note card">เริ่มสัปดาห์ละ 2–3 วันก็พอ ทำช้า ๆ และหยุดถ้าเจ็บหรือเวียนหัว วันไหนนอนน้อยให้พักได้เลย</div>
+        <div class="exercise-list">
+          <article class="card exercise"><div class="emoji">🪲</div><div><h3>Dead Bug</h3><p>10 ครั้ง × 2 เซต</p><small>นอนหงาย ยกแขนและขาสลับกัน คุมหลังให้มั่นคง</small></div></article>
+          <article class="card exercise"><div class="emoji">🌉</div><div><h3>Glute Bridge</h3><p>12 ครั้ง × 2 เซต</p><small>งอเข่า วางเท้าราบ แล้วยกสะโพกขึ้นอย่างนุ่มนวล</small></div></article>
+          <article class="card exercise"><div class="emoji">🐦</div><div><h3>Bird Dog</h3><p>ข้างละ 10 ครั้ง × 2 เซต</p><small>ยกแขนและขาตรงข้าม คุมลำตัวไม่ให้บิด</small></div></article>
+          <article class="card exercise"><div class="emoji">🧘🏻‍♀️</div><div><h3>Knee Plank</h3><p>15–20 วินาที × 2 รอบ</p><small>วางเข่าบนพื้น เกร็งหน้าท้องเบา ๆ ไม่แอ่นหลัง</small></div></article>
+        </div>
+        <div class="card form">
+          <h3>บันทึกการออกกำลังกาย</h3>
+          <label>กิจกรรม<input id="workoutName" placeholder="เช่น เดิน 15 นาที"></label>
+          <label>ระยะเวลา (นาที)<input id="workoutMinutes" type="number" min="1" placeholder="15"></label>
+          <button class="primary" id="saveWorkout">บันทึกการออกกำลัง</button>
+          <div id="workoutEntries" class="entry-list"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="progress">
+        <div class="section-heading"><div><p class="eyebrow">YOUR PROGRESS</p><h2>ความคืบหน้าของเรา</h2></div></div>
+        <form class="card form" id="progressForm">
+          <div class="two">
+            <label>น้ำหนัก (กก.)<input id="weightInput" type="number" min="20" max="300" step="0.1" placeholder="เช่น 62.5"></label>
+            <label>รอบเอว (ซม.)<input id="waistInput" type="number" min="30" max="250" step="0.1" placeholder="เช่น 75"></label>
+          </div>
+          <label>วันที่<input id="progressDate" type="date"></label>
+          <button class="primary" type="submit">บันทึกความคืบหน้า</button>
+        </form>
+        <div class="stats">
+          <div class="card stat"><span>น้ำหนักล่าสุด</span><strong id="latestWeight">—</strong><small>กิโลกรัม</small></div>
+          <div class="card stat"><span>รอบเอวล่าสุด</span><strong id="latestWaist">—</strong><small>เซนติเมตร</small></div>
+        </div>
+        <div class="card"><h3>ประวัติการบันทึก</h3><div id="progressEntries" class="entry-list"></div></div>
+        <div class="section-heading"><div><p class="eyebrow">SLEEP LOG</p><h2>บันทึกการนอน 🌙</h2></div></div>
+        <form class="card form" id="sleepForm">
+          <div class="two"><label>เข้านอน<input id="sleepStart" type="time" value="06:00"></label><label>ตื่นนอน<input id="sleepEnd" type="time" value="17:00"></label></div>
+          <button class="secondary" type="submit">บันทึกเวลานอน</button>
+        </form>
+        <div id="sleepEntries" class="entry-list"></div>
+        <button class="danger-text" id="exportData">ดาวน์โหลดข้อมูลสำรอง (JSON)</button>
+        <button class="danger-text" id="clearData">ล้างข้อมูลทั้งหมดในแอปนี้</button>
+      </section>
+    </main>
+    <footer>Made with care for your journey ♡<br><small>ข้อมูลบันทึกในเบราว์เซอร์ของอุปกรณ์นี้</small></footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
